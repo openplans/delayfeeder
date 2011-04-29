@@ -1,0 +1,15 @@
+The DelayFeeder application and API is a special piece of middleware that keeps a list of service alert RSS feeds updated, exposing the results via JSONP.
+
+When a request comes in for a list of routes, DelayFeeder checks to see how old its cached copy of the backing RSS feed is, and if it’s older than 15 minutes, requests the feed from the origin server. When the response comes in, or if the cached copy is less than 15 minutes old, the system returns the latest item in the backing RSS feed as a JSONP data structure.
+
+DelayFeeder has a backing database to store state, but can be successfully balanced with a load balancer. No user session information/passing is needed.
+
+To use delayfeeder:
+
+1. edit data-sources.xml to point to some reasonable database.
+2. mvn package.  Move the war file to your tomcat webapps directory
+3. To load in the list of feed URLs (see sample in examples/), run:
+
+mvn exec:java -Dexec.mainClass=org.openplans.delayfeeder.LoadFeeds -Dexec.args=/path/to/feeds.txt
+
+You can run this any time you need to update the URLs; it's important.
