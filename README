@@ -4,12 +4,12 @@ When a request comes in for a list of routes, DelayFeeder checks to see how old 
 
 DelayFeeder has a backing database to store state, but can be successfully balanced with a load balancer. No user session information/passing is needed.
 
-To use delayfeeder:
+To begin developing with this repo, import this project into Eclipse as a Maven project.
 
-1. edit data-sources.xml to point to some reasonable database.
-2. mvn package.  Move the war file to your tomcat webapps directory
+To use/deploy delayfeeder:
+1. Edit data-sources.xml to point to some reasonable database.
+2. Run mvn package. Move the war file to your tomcat webapps directory
 3. To load in the list of feed URLs (see sample in examples/), run:
+    mvn exec:java -Dexec.mainClass=org.openplans.delayfeeder.LoadFeeds -Dexec.args=/path/to/feeds.txt
 
-mvn exec:java -Dexec.mainClass=org.openplans.delayfeeder.LoadFeeds -Dexec.args=/path/to/feeds.txt
-
-You can run this any time you need to update the URLs; it's important.
+You need to run this any time you need to update the URLs; it's important.
