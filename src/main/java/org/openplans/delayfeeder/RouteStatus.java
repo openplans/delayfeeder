@@ -146,6 +146,15 @@ public class RouteStatus {
 
 	private void refreshFeed(RouteFeed feed, Session session) throws IllegalArgumentException,
 			FeedException, IOException {
+		
+		// flush existing items
+		for(RouteFeedItem item : feed.items)
+		{
+			session.delete(item);
+		}
+		
+		feed.items.clear();
+		
 		URL url = new URL(feed.url);
 
 		SyndFeedInput input = new SyndFeedInput();
